@@ -1,21 +1,24 @@
 // open/close popup
-let openPopup = document.querySelector('.profile__edit');
+let openPopupBtn = document.querySelector('.profile__edit');
+let closePopupBtn = document.querySelector('.popup__close')
 let popup = document.querySelector('.popup');
-let closePopup = document.querySelector('.popup__close')
 
-openPopup.addEventListener('click', toggleClass);
-closePopup.addEventListener('click', toggleClass);
-
-function toggleClass () {
-  popup.classList.toggle('popup_opened');
+function openPopup () {
+  popup.classList.add('popup_opened');
 }
+
+function closePopup () {
+  popup.classList.remove('popup_opened');
+}
+
+openPopupBtn.addEventListener('click', openPopup);
+closePopupBtn.addEventListener('click', closePopup);
 
 popup.addEventListener('click', function(event){
   if(event.target === event.currentTarget) {
-    toggleClass()
+    closePopup ()
   }
 });
-
 
 // profile edit
 let formElement = document.querySelector('.popup__form');
@@ -31,13 +34,13 @@ function popupOpen() {
 }
 
 function formSubmitHandler (evt) {
-    evt.preventDefault(); 
-    let nameValue = nameInput.value;
-    let aboutValue = aboutInput.value;
-    profileName.textContent = nameValue;
-    profileAbout.textContent = aboutValue;
+  evt.preventDefault(); 
+  let nameValue = nameInput.value;
+  let aboutValue = aboutInput.value;
+  profileName.textContent = nameValue;
+  profileAbout.textContent = aboutValue;
+  closePopup ();
 }
 
-openPopup.addEventListener('click', popupOpen);
+openPopupBtn.addEventListener('click', popupOpen);
 formElement.addEventListener('submit', formSubmitHandler);
-formElement.addEventListener('submit', toggleClass);
