@@ -1,5 +1,6 @@
 .popup__close {
   background: transparent url(../../../images/close_icon.svg) no-repeat;
+  background-size: cover;
   border: none;
   padding: 0;
   width: 40px;
@@ -17,7 +18,9 @@
 
 @media screen and (max-width: 520px) {
   .popup__close {
-    left: calc(100% - 38px);
-    top: -63px;
+    left: calc(100% - 26px);
+    top: -39px;
+    width: 26px;
+    height: 26px;
   }
 }
