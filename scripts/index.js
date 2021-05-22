@@ -20,7 +20,7 @@ popup.addEventListener('click', function(event){
   }
 });
 
-// profile edit
+// edit profile 
 let formElement = document.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_type_name');
 let aboutInput = formElement.querySelector('.popup__input_type_about');
