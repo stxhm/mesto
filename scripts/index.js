@@ -1,17 +1,12 @@
-// open/close popup
+// close popup
 let openPopupBtn = document.querySelector('.profile__edit');
 let closePopupBtn = document.querySelector('.popup__close')
 let popup = document.querySelector('.popup');
-
-function openPopup () {
-  popup.classList.add('popup_opened');
-}
 
 function closePopup () {
   popup.classList.remove('popup_opened');
 }
 
-openPopupBtn.addEventListener('click', openPopup);
 closePopupBtn.addEventListener('click', closePopup);
 
 popup.addEventListener('click', function(event){
