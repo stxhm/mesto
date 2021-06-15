@@ -53,6 +53,20 @@ function closePopup(element) {
   element.classList.remove('popup_opened');
 }
 
+// ф-ция закрытия попапа по клику в пустую область
+function closePopupOverlay(popupElement, event){
+  if(event.target === event.currentTarget) {
+    closePopup (popupElement)
+  }
+}
+
+// ф-ция закрытия попапа по Esc
+function closePopupEsc(popupElement, event){
+  if(event.key === 'Escape') {
+    closePopup (popupElement)
+  }
+}
+
 // ф-ция создания попапа с картинкой
 function popupImageHandler(name, link) {
   popupImageImage.src = link;
@@ -124,32 +138,29 @@ function renderCards() {
 }
 renderCards();
 
+
+// СЛУШАТЕЛИ СОБЫТИЙ
+
 // открытие формы создания карточки
 newCardBtn.addEventListener('click', () => openPopup(popupNewCard));
 
 // закрытие формы создания карточки
 closeNewCardBtn.addEventListener('click', () => closePopup(popupNewCard));
-
-popupNewCard.addEventListener('click', function(event){
-  if(event.target === event.currentTarget) {
-    closePopup (popupNewCard)
-  }
-});
+popupNewCard.addEventListener('click', () => closePopupOverlay(popupNewCard, event));
+document.addEventListener('keydown', () => closePopupEsc(popupNewCard, event))
 
 // закрытие попапа с картинкой
 popupImageClose.addEventListener('click', () => closePopup(popupImage));
+popupImage.addEventListener('click', () => closePopupOverlay(popupImage, event));
+document.addEventListener('keydown', () => closePopupEsc(popupImage, event))
 
 // добавление карточки пользователем
 newCardForm.addEventListener('submit', addCustomCard);
 
 // закрытие формы редактирования профиля
 closePopupBtn.addEventListener('click', () => closePopup(popupProfile));
-
-popupProfile.addEventListener('click', function(event){
-  if(event.target === event.currentTarget) {
-    closePopup (popupProfile)
-  }
-});
+popupProfile.addEventListener('click', () => closePopupOverlay(popupProfile, event));
+document.addEventListener('keydown', () => closePopupEsc(popupProfile, event))
 
 // открытие формы редактирования профиля
 openProfileBtn.addEventListener('click', popupProfileOpen);
