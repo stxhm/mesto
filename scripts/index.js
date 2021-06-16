@@ -54,15 +54,15 @@ function closePopup(element) {
 }
 
 // ф-ция закрытия попапа по клику в пустую область
-function closePopupOverlay(popupElement, event){
-  if(event.target === event.currentTarget) {
+function closePopupOverlay(popupElement, evt){
+  if(evt.target === evt.currentTarget) {
     closePopup (popupElement)
   }
 }
 
 // ф-ция закрытия попапа по Esc
-function closePopupEsc(popupElement, event){
-  if(event.key === 'Escape') {
+function closePopupEsc(popupElement, evt){
+  if(evt.key === 'Escape') {
     closePopup (popupElement)
   }
 }
@@ -137,9 +137,6 @@ function renderCards() {
   })
 }
 renderCards();
-
-
-// СЛУШАТЕЛИ СОБЫТИЙ
 
 // открытие формы создания карточки
 newCardBtn.addEventListener('click', () => openPopup(popupNewCard));
