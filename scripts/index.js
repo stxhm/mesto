@@ -44,13 +44,14 @@ const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
 // ф-ция открытия попапа
-function openPopup(element) {
-  element.classList.add('popup_opened');
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
 }
 
 // ф-ция закрытия попапа
-function closePopup(element) {
-  element.classList.remove('popup_opened');
+function closePopup(popupElement, evt) {
+  popupElement.classList.remove('popup_opened');
+  document.removeEventListener('keydown', () => closePopupEsc(popupElement, evt));
 }
 
 // ф-ция закрытия попапа по клику в пустую область
