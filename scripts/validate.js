@@ -41,8 +41,12 @@ function setCustomError(input) {
     input.setCustomValidity(`Строка имеет неверную длину. Введено символов: ${currentLength}, нужно от ${min} до ${max}`);
   }
 
+  if (currentLength === 0) {
+    input.setCustomValidity(`Вы пропустили это поле`);
+  }
+
   if (validity.typeMismatch) {
-    input.setCustomValidity('Это не ссылка');
+    input.setCustomValidity('Введите адрес сайта');
   }
 }
 
