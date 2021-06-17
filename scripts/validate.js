@@ -1,7 +1,14 @@
-function enableValidation ({formSelector, ...params}) {
-  const form = document.querySelectorAll(formSelector);
+const validationConfig = {
+  formSelector: '.popup__form',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_invalid'
+};
 
-  Array.from(form).forEach((item) => {
+function enableValidation ({formSelector, ...params}) {
+  const forms = document.querySelectorAll(formSelector);
+
+  Array.from(forms).forEach((item) => {
     item.addEventListener('submit', () => handleFormSubmit (event, params));
     item.addEventListener('input', () => handleFormInput (event, params));
   });
@@ -79,11 +86,4 @@ function setInputState(input, {inputErrorClass}) {
   }
 }
 
-enableValidation(
-  {
-    formSelector: '.popup__form',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_invalid'
-  }
-);
+enableValidation(validationConfig);
