@@ -27,6 +27,7 @@ function handleFormInput (evt, params) {
   setCustomError(input);
   setFieldError(input);
   setSubmitButtonState(form, params);
+  setInputState(input, params);
 }
 
 function setCustomError(input) {
@@ -68,10 +69,21 @@ function setSubmitButtonState(form, {submitButtonSelector, inactiveButtonClass})
   }
 }
 
+function setInputState(input, {inputErrorClass}) {
+  const isValid = input.checkValidity();
+
+  if (!isValid) {
+    input.classList.add(inputErrorClass);
+  } else {
+    input.classList.remove(inputErrorClass);
+  }
+}
+
 enableValidation(
   {
     formSelector: '.popup__form',
     submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled'
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_invalid'
   }
 );

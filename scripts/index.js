@@ -23,25 +23,28 @@ const initialCards = [
     name: 'Камчатка',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
   }
-]; 
+];
+
 const cardTemplate = document.querySelector('.template_card').content;
 const cards = document.querySelector('.cards');
 const popupNewCard = document.querySelector('.popup_type_new-card');
 const newCardBtn = document.querySelector('.profile__add-button');
 const closeNewCardBtn = popupNewCard.querySelector('.popup__close');
 const newCardForm = document.forms.newcard;
-const popupImage = document.querySelector('.popup-image');
-const popupImageImage = popupImage.querySelector('.popup-image__image');
-const popupImageName = popupImage.querySelector('.popup-image__name');
-const popupImageClose = popupImage.querySelector('.popup-image__close');
+
 const popupProfile = document.querySelector('.popup_type_edit-profile');
 const openProfileBtn = document.querySelector('.profile__edit');
-const closePopupBtn = document.querySelector('.popup__close');
+const closeProfileBtn = popupProfile.querySelector('.popup__close');
 const profileForm = document.forms.editprofile;
 const nameInput = profileForm.querySelector('.popup__input_type_name');
 const aboutInput = profileForm.querySelector('.popup__input_type_about');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
+
+const popupImage = document.querySelector('.popup-image');
+const popupImageImage = popupImage.querySelector('.popup-image__image');
+const popupImageName = popupImage.querySelector('.popup-image__name');
+const popupImageClose = popupImage.querySelector('.popup-image__close');
 
 // ф-ция открытия попапа
 function openPopup(popupElement) {
@@ -49,22 +52,25 @@ function openPopup(popupElement) {
 }
 
 // ф-ция закрытия попапа
-function closePopup(popupElement, evt) {
-  popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', () => closePopupEsc(popupElement, evt));
+function closePopup() {
+  const popupOpened = document.querySelector('.popup_opened');
+  popupOpened.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', () => closePopupEsc(evt));
 }
 
 // ф-ция закрытия попапа по клику в пустую область
-function closePopupOverlay(popupElement, evt){
+function closePopupOverlay(evt){
   if(evt.target === evt.currentTarget) {
-    closePopup (popupElement)
+    closePopup ()
   }
 }
 
 // ф-ция закрытия попапа по Esc
-function closePopupEsc(popupElement, evt){
-  if(evt.key === 'Escape') {
-    closePopup (popupElement)
+function closePopupEsc(evt){
+  const popupOpened = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape' && popupOpened) {
+    closePopup ()
   }
 }
 
@@ -143,22 +149,22 @@ renderCards();
 newCardBtn.addEventListener('click', () => openPopup(popupNewCard));
 
 // закрытие формы создания карточки
-closeNewCardBtn.addEventListener('click', () => closePopup(popupNewCard));
-popupNewCard.addEventListener('click', () => closePopupOverlay(popupNewCard, event));
-document.addEventListener('keydown', () => closePopupEsc(popupNewCard, event))
+closeNewCardBtn.addEventListener('click', closePopup);
+popupNewCard.addEventListener('click', () => closePopupOverlay(event));
+document.addEventListener('keydown', () => closePopupEsc(event))
 
 // закрытие попапа с картинкой
-popupImageClose.addEventListener('click', () => closePopup(popupImage));
-popupImage.addEventListener('click', () => closePopupOverlay(popupImage, event));
-document.addEventListener('keydown', () => closePopupEsc(popupImage, event))
+popupImageClose.addEventListener('click', closePopup);
+popupImage.addEventListener('click', () => closePopupOverlay(event));
+document.addEventListener('keydown', () => closePopupEsc(event))
 
 // добавление карточки пользователем
 newCardForm.addEventListener('submit', addCustomCard);
 
 // закрытие формы редактирования профиля
-closePopupBtn.addEventListener('click', () => closePopup(popupProfile));
-popupProfile.addEventListener('click', () => closePopupOverlay(popupProfile, event));
-document.addEventListener('keydown', () => closePopupEsc(popupProfile, event))
+closeProfileBtn.addEventListener('click', closePopup);
+popupProfile.addEventListener('click', () => closePopupOverlay(event));
+document.addEventListener('keydown', () => closePopupEsc(event))
 
 // открытие формы редактирования профиля
 openProfileBtn.addEventListener('click', popupProfileOpen);
