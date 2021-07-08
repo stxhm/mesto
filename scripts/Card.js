@@ -13,8 +13,9 @@ class Card {
     event.target.classList.toggle('card__like_liked');
   }
 
-  _deleteHandler = (event) => {
-    event.target.closest('.card').remove();
+  _deleteHandler = () => {
+    this._card.remove();
+    this._card = null;
   }
 
   _popupImageHandler = () => {
