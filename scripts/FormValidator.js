@@ -1,9 +1,11 @@
 class FormValidator {
-  constructor(config) {
+  constructor(config, formElement) {
     this._formSelector = config.formSelector;
+    this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
+    this._form = formElement.querySelector('.popup__form');
   }
 
   _setCustomError = (input) => {
@@ -31,9 +33,9 @@ class FormValidator {
     span.textContent = input.validationMessage;
   }
 
-  _setSubmitButtonState = (form) => {
-    const button = form.querySelector(this._submitButtonSelector);
-    const isValid = form.checkValidity();
+  _setSubmitButtonState = () => {
+    const button = this._form.querySelector(this._submitButtonSelector);
+    const isValid = this._form.checkValidity();
     if (isValid) {
       button.classList.remove(this._inactiveButtonClass);
       button.removeAttribute('disabled');
@@ -75,11 +77,8 @@ class FormValidator {
   }
 
   enableValidation = () => {
-    const forms = document.querySelectorAll(this._formSelector);
-    Array.from(forms).forEach((item) => {
-      item.addEventListener('submit', () => this._handleFormSubmit (event));
-      item.addEventListener('input', () => this._handleFormInput (event));
-    });
+    this._form.addEventListener('submit', () => this._handleFormSubmit (event));
+    this._form.addEventListener('input', () => this._handleFormInput (event));
   }
 }
 

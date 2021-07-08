@@ -117,5 +117,9 @@ popupImage.addEventListener('click', () => closePopupOverlay(event));
 // добавление карточки пользователем
 newCardForm.addEventListener('submit', addCustomCard);
 
-const formValidator = new FormValidator(validationConfig);
-formValidator.enableValidation();
+// валидация
+const profileformValidator = new FormValidator(validationConfig, popupProfile);
+const cardformValidator = new FormValidator(validationConfig, popupNewCard);
+
+profileformValidator.enableValidation();
+cardformValidator.enableValidation();

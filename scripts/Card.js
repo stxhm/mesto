@@ -5,6 +5,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._openPopup = openPopup;
     this._card = document.querySelector(this._cardSelector).content.querySelector('.card').cloneNode(true);
+    this._image = this._card.querySelector('.card__image');
     this._cardImage = document.querySelector('.popup-image__image');
     this._cardImageName = document.querySelector('.popup-image__name');
   }
@@ -28,13 +29,13 @@ class Card {
   _setListeners = () => {
     this._card.querySelector('.card__like').addEventListener('click', this._likeHandler);
     this._card.querySelector('.card__delete').addEventListener('click', this._deleteHandler);
-    this._card.querySelector('.card__image').addEventListener('click', this._popupImageHandler);
+    this._image.addEventListener('click', this._popupImageHandler);
   }
 
   getCard = () => {
     this._card.querySelector('.card__title').textContent = this._name;
-    this._card.querySelector('.card__image').src = this._link;
-    this._card.querySelector('.card__image').alt = `фотография ${this._name}`;
+    this._image.src = this._link;
+    this._image.alt = `фотография ${this._name}`;
     this._setListeners();
     return this._card;
   }
