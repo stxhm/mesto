@@ -5,7 +5,8 @@ class FormValidator {
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
-    this._form = formElement.querySelector('.popup__form');
+    this._form = formElement.querySelector(this._formSelector);
+    this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
   _setCustomError = (input) => {
@@ -34,14 +35,13 @@ class FormValidator {
   }
 
   _setSubmitButtonState = () => {
-    const button = this._form.querySelector(this._submitButtonSelector);
     const isValid = this._form.checkValidity();
     if (isValid) {
-      button.classList.remove(this._inactiveButtonClass);
-      button.removeAttribute('disabled');
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.removeAttribute('disabled');
     } else {
-      button.classList.add(this._inactiveButtonClass);
-      button.setAttribute('disabled', true);
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.setAttribute('disabled', true);
     }
   }
 
@@ -57,28 +57,25 @@ class FormValidator {
   _handleFormSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    const button = form.querySelector(this._submitButtonSelector);
     const isValid = form.checkValidity();
     if (isValid) {
       form.reset();
-      button.classList.add(this._inactiveButtonClass);
-      button.setAttribute('disabled', true);
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.setAttribute('disabled', true);
     } 
   }
 
   _handleFormInput = (evt) => {
     const input = evt.target;
-    const form = evt.currentTarget;
-  
     this._setCustomError(input);
     this._setFieldError(input);
-    this._setSubmitButtonState(form);
+    this._setSubmitButtonState(this._form);
     this._setInputState(input);
   }
 
   enableValidation = () => {
-    this._form.addEventListener('submit', () => this._handleFormSubmit (event));
-    this._form.addEventListener('input', () => this._handleFormInput (event));
+    this._form.addEventListener('submit', () => this._handleFormSubmit(event));
+    this._form.addEventListener('input', () => this._handleFormInput(event));
   }
 }
 
