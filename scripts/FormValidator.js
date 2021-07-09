@@ -1,11 +1,10 @@
 class FormValidator {
   constructor(config, formElement) {
-    this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
-    this._form = formElement.querySelector(this._formSelector);
+    this._form = formElement;
     this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
@@ -30,7 +29,7 @@ class FormValidator {
   }
 
   _setFieldError = (input) => {
-    const span = document.querySelector(`#${input.id}-error`);
+    const span = this._form.querySelector(`#${input.id}-error`);
     span.textContent = input.validationMessage;
   }
 

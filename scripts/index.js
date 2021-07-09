@@ -19,6 +19,8 @@ const profileNameInput = profileForm.querySelector('.popup__input_type_name');
 const profileAboutInput = profileForm.querySelector('.popup__input_type_about');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
+const formPopupProfile = popupProfile.querySelector('form');
+const formPopupNewCard = popupNewCard.querySelector('form');
 
 // ф-ция создания карточки
 function createCard (item) {
@@ -118,8 +120,8 @@ popupImage.addEventListener('click', () => closePopupOverlay(event));
 newCardForm.addEventListener('submit', addCustomCard);
 
 // валидация
-const profileformValidator = new FormValidator(validationConfig, popupProfile);
-const cardformValidator = new FormValidator(validationConfig, popupNewCard);
+const profileformValidator = new FormValidator(validationConfig, formPopupProfile);
+const cardformValidator = new FormValidator(validationConfig, formPopupNewCard);
 
 profileformValidator.enableValidation();
 cardformValidator.enableValidation();
