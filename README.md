@@ -10,4 +10,4 @@
 * JavaScript
 
 ---
-[Ссылка на проект](https://stxhm.github.io/mesto/index.html)
+[Ссылка на проект](https://stxhm.github.io/mesto)
