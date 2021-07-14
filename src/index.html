@@ -6,17 +6,16 @@
   <meta name="description" content="Проектная работа 4">
   <meta name="keywords" content="html, css, js">
   <meta name="author" content="Владимир Шевцов">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="лого">
+      <img class="header__logo" src=<%=require('./images/logo.svg')%> alt="лого">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar">
+        <img src=<%=require('./images/avatar.jpg')%> alt="аватар" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit" type="button"></button>
@@ -46,7 +45,7 @@
         <button type="button" class="popup__close" aria-label="закрыть попап"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="editprofile" novalidate>
-          <input id="name-profile" type="text" name="name-profile" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40">
+          <input id="name-profile" type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40">
           <span id="name-profile-error" class="popup__error popup__error_hidden"></span>
           <input id="about" type="text" name="about" class="popup__input popup__input_type_about" placeholder="Описание" required minlength="2" maxlength="200">
           <span id="about-error" class="popup__error popup__error_hidden"></span>
@@ -60,7 +59,7 @@
         <button type="button" class="popup__close" aria-label="закрыть попап"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form " name="newcard" novalidate>
-          <input id="name-card" type="text" name="name-card" class="popup__input popup__input_type_name" placeholder="Название" required minlength="2" maxlength="30"> 
+          <input id="name-card" type="text" name="name" class="popup__input popup__input_type_card-name" placeholder="Название" required minlength="2" maxlength="30"> 
           <span id="name-card-error" class="popup__error popup__error_hidden"></span>
           <input id="link" type="url" name="link" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
           <span id="link-error" class="popup__error popup__error_hidden"></span>
@@ -78,6 +77,5 @@
     </div>
 
   </div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
