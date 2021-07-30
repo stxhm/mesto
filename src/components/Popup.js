@@ -2,6 +2,7 @@ class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
+    this._buttonSubmit = this._popup.querySelector('.popup__button');
   }
 
   open() {
@@ -14,9 +15,9 @@ class Popup {
     document.removeEventListener('keyup', this._handleEscClose);
   }
 
-  _handleEscClose(evt) {
-    evt.preventDefault();
-    if(evt.key === 'Escape') {
+  _handleEscClose(event) {
+    event.preventDefault();
+    if(event.key === 'Escape') {
       this.close()
     }
   }
@@ -25,11 +26,15 @@ class Popup {
     this._popup.querySelector('.popup__close').addEventListener('click', () => { 
       this.close()
     });
-    this._popup.addEventListener('click', evt => {
-      if (evt.target === evt.currentTarget) {
+    this._popup.addEventListener('click', event => {
+      if (event.target === event.currentTarget) {
         this.close();
       }
     });
+  }
+
+  _handleLoading = (message) => {
+    this._buttonSubmit.textContent = message;
   }
 }
 
