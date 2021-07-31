@@ -123,8 +123,7 @@ popupCard.setEventListeners();
 
 newCardOpenBtn.addEventListener('click', () => {
   popupCard.open();
-  newCardSubmit.classList.add('popup__button_disabled');
-  newCardSubmit.setAttribute('disabled', true);
+  cardFormValidator.disableButton();
 });
 
 const avatarPopup = new PopupWithForm({
@@ -143,6 +142,7 @@ avatarPopup.setEventListeners();
 
 profileAvatarBtn.addEventListener('click', () => {
   avatarPopup.open();
+  avatarFormValidator.disableButton();
 });
 
 const profileFormValidator = new FormValidator(validationConfig, formPopupProfile);

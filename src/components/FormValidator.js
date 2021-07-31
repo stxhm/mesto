@@ -61,8 +61,13 @@ class FormValidator {
     this._setInputState(input);
   }
 
+  disableButton = () => {
+    this._buttonElement.classList.add('popup__button_disabled');
+    this._buttonElement.setAttribute('disabled', true);
+  }
+
   enableValidation = () => {
-    this._form.addEventListener('input', () => this._handleFormInput(event));
+    this._form.addEventListener('input', (event) => this._handleFormInput(event));
   }
 }
 

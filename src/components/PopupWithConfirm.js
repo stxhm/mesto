@@ -12,7 +12,7 @@ class PopupWithConfirm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.querySelector('.popup__button').addEventListener('click', () => {
+    this._buttonSubmit.addEventListener('click', () => {
       this._handleSubmit();
       this._handleLoading('Удаление...');
     });

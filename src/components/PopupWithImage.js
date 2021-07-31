@@ -11,7 +11,7 @@ class PopupWithImage extends Popup {
     this._cardImage.src = item.link;
     this._cardImage.alt = `фотография ${item.name}`;
     this._cardImageName.innerText = item.name;
-    this._cardImage.addEventListener('click', super.open());
+    super.open();
   }
 }
 
