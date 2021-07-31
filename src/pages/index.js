@@ -114,9 +114,9 @@ const popupCard = new PopupWithForm({
     api.setCard(inputValue)
     .then((item) => {
       createCard(item); 
+      popupCard.close();
     })
-    .catch(err => console.log(err))
-    .finally(() => popupCard.close())
+    .catch(err => console.log(err));
   }
 });
 popupCard.setEventListeners(); 
