@@ -11,11 +11,6 @@ class Api {
     return res.json();
   }
 
-  _handleResponseError(err){
-    console.log('Error');
-    return Promise.reject(err.message);
-  }
-
   setAvatar = (data) => {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
@@ -25,7 +20,6 @@ class Api {
       })
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   getUserInfo = () => {
@@ -33,7 +27,6 @@ class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   setUserInfo = (data) => {
@@ -46,15 +39,17 @@ class Api {
       })
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
-  getInitialCards = () => {
+  getCards = () => {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
+  }
+
+  getInitialData = () => {
+    return Promise.all([this.getUserInfo(), this.getCards()]);
   }
 
   setCard = (data) => {
@@ -67,7 +62,6 @@ class Api {
       })
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   deleteCard = (id) => {
@@ -76,7 +70,6 @@ class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   setLike = (id) => {
@@ -85,7 +78,6 @@ class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   deleteLike = (id) => {
@@ -94,7 +86,6 @@ class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 }
 

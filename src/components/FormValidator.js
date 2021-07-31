@@ -53,17 +53,6 @@ class FormValidator {
     }
   }
 
-  _handleFormSubmit = (evt) => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    const isValid = form.checkValidity();
-    if (isValid) {
-      form.reset();
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.setAttribute('disabled', true);
-    } 
-  }
-
   _handleFormInput = (evt) => {
     const input = evt.target;
     this._setCustomError(input);
@@ -73,7 +62,6 @@ class FormValidator {
   }
 
   enableValidation = () => {
-    this._form.addEventListener('submit', () => this._handleFormSubmit(event));
     this._form.addEventListener('input', () => this._handleFormInput(event));
   }
 }

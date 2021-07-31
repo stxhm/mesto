@@ -21,16 +21,36 @@ import {
   formPopupNewCard,
   profileAvatar,
   profileAvatarBtn,
-  formProfileAvatar
+  formProfileAvatar,
+  newCardSubmit
 } from '../utils/constants.js';
 
+let userId = null;
+
 const api = new Api(apiConfig);
+
+const userInfo = new UserInfo({ profileName, profileAbout, profileAvatar });
+
+const cardsList = new Section({
+  'renderer': (item) => {
+    createCard(item);
+}}, '.cards');
 
 const popupConfirm = new PopupWithConfirm('.popup-confirm');
 popupConfirm.setEventListeners();
 
+api.getInitialData()
+.then((data) => {
+  const [userData, cardsData] = data;
+  userId = userData._id;
+  userInfo.setUserInfo(userData);
+  userInfo.setUserAvatar(userData);
+  cardsList.renderItems(cardsData);
+})
+.catch(err => console.log(err));
+
 function createCard (item) {
-  const card = new Card( apiConfig.myId, item, '.template-card', { 
+  const card = new Card( userId, item, '.template-card', { 
     handleCardClick: () => popupImage.open(item),
     handleCardDelete: () => {
       popupConfirm.setSubmitAction(() => {
@@ -39,22 +59,25 @@ function createCard (item) {
           card.deleteHandler();
           popupConfirm.close();
         })
+        .catch(err => console.log(err))
       });
       popupConfirm.open();
     },
     handleAddLike: () => {
       api.setLike(item._id)
-      .then((item) => {
-        card.showLikeCounter(item.likes);
+      .then((newCard) => {
+        card.showLikeCounter(newCard.likes);
         card.likeHandler();
       })
+      .catch(err => console.log(err))
     },
     handleDeleteLike: () => {
       api.deleteLike(item._id)
-      .then((item) => {
-        card.showLikeCounter(item.likes);
+      .then((newCard) => {
+        card.showLikeCounter(newCard.likes);
         card.likeHandler();
       })
+      .catch(err => console.log(err))
     }
   });
   cardsList.addItem(card.getCard());
@@ -63,31 +86,22 @@ function createCard (item) {
 const popupImage = new PopupWithImage('.popup-image');
 popupImage.setEventListeners();
 
-const user = new UserInfo({
-  profileName: profileName,
-  profileAbout: profileAbout,
-  profileAvatar: profileAvatar
-});
-
-api.getUserInfo()
-  .then((res) => {
-    user.setUserInfo(res);
-    user.setUserAvatar(res);
-  });
-
 const profilePopup = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleSubmitForm: () => {
     const inputValue = profilePopup.getInputValues();
     api.setUserInfo(inputValue)
-    .then(data => user.setUserInfo(data));
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      profilePopup.close();
+    })
+    .catch(err => console.log(err))
   }
 });
-
 profilePopup.setEventListeners();
 
 profileOpenBtn.addEventListener('click', () => {
-  const currentValues = user.getUserInfo();
+  const currentValues = userInfo.getUserInfo();
   profileNameInput.value = currentValues.name;
   profileAboutInput.value = currentValues.about;
   profilePopup.open();
@@ -98,14 +112,19 @@ const popupCard = new PopupWithForm({
   handleSubmitForm: () => {
     const inputValue = popupCard.getInputValues();
     api.setCard(inputValue)
-    .then(item => createCard(item));
+    .then((item) => {
+      createCard(item); 
+      popupCard.close();
+    })
+    .catch(err => console.log(err))
   }
 });
-
 popupCard.setEventListeners(); 
 
 newCardOpenBtn.addEventListener('click', () => {
   popupCard.open();
+  newCardSubmit.classList.add('popup__button_disabled');
+  newCardSubmit.setAttribute('disabled', true);
 });
 
 const avatarPopup = new PopupWithForm({
@@ -114,26 +133,16 @@ const avatarPopup = new PopupWithForm({
     const inputValue = avatarPopup.getInputValues();
     api.setAvatar(inputValue)
     .then((data) => {
-      user.setUserAvatar(data);
+      userInfo.setUserAvatar(data);
+      avatarPopup.close();
     })
+    .catch(err => console.log(err))
   }
 });
-
 avatarPopup.setEventListeners();
 
 profileAvatarBtn.addEventListener('click', () => {
   avatarPopup.open();
-});
-
-const cardsList = new Section({
-  'items': api.getInitialCards,
-  'renderer': (item) => {
-    createCard(item);
-}}, '.cards');
-
-api.getInitialCards()
-.then((res) => {
-  cardsList.renderItems(res);
 });
 
 const profileFormValidator = new FormValidator(validationConfig, formPopupProfile);
