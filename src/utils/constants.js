@@ -23,7 +23,6 @@ export const profileAboutInput = popupProfile.querySelector('.popup__input_type_
 export const formPopupProfile = popupProfile.querySelector('form');
 export const popupNewCard = document.querySelector('.popup_type_new-card');
 export const formPopupNewCard = popupNewCard.querySelector('form');
-export const newCardSubmit = formPopupNewCard.querySelector('.popup__button');
 export const profileAvatarBtn = document.querySelector('.profile__avatar-button');
 export const profileAvatar = document.querySelector('.profile__avatar');
 export const popupProfileAvatar = document.querySelector('.popup_type_edit-avatar');

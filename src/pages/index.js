@@ -21,8 +21,7 @@ import {
   formPopupNewCard,
   profileAvatar,
   profileAvatarBtn,
-  formProfileAvatar,
-  newCardSubmit
+  formProfileAvatar
 } from '../utils/constants.js';
 
 let userId = null;
