@@ -39,8 +39,7 @@ class FormValidator {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.removeAttribute('disabled');
     } else {
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.setAttribute('disabled', true);
+      this.disableButton();
     }
   }
 
@@ -62,7 +61,7 @@ class FormValidator {
   }
 
   disableButton = () => {
-    this._buttonElement.classList.add('popup__button_disabled');
+    this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
   }
 
